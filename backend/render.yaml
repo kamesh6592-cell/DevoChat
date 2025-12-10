@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: devochat-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: MONGODB_URI
+        sync: false
+      - key: PRODUCTION_URL
+        sync: false
+      - key: DEVELOPMENT_URL
+        sync: false
+      - key: AUTH_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: HUGGINGFACE_API_KEY
+        sync: false
+      - key: XAI_API_KEY
+        sync: false
+      - key: MISTRAL_API_KEY
+        sync: false
+      - key: FIREWORKS_API_KEY
+        sync: false
+      - key: FRIENDLI_API_KEY
+        sync: false
+      - key: FLUX_API_KEY
+        sync: false
+      - key: BYTEPLUS_API_KEY
+        sync: false
+      - key: ALIBABA_API_KEY
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true
