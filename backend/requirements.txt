@@ -12,6 +12,7 @@ dnspython==2.7.0
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 bcrypt==4.2.1
+PyJWT==2.10.1
 
 # AI Provider SDKs
 anthropic==0.47.2
