@@ -35,7 +35,6 @@ export const useFileUpload = (initialFiles = []) => {
             }
             throw new Error(`An error occurred while processing ${file.name}`);
           }
-          }
           
           const data = await res.json();
           if (data.error) {
@@ -74,7 +73,6 @@ export const useFileUpload = (initialFiles = []) => {
               throw new Error(`${file.name} exceeds the file size limit`);
             }
             throw new Error(`An error occurred while processing ${file.name}`);
-          }
           }
           
           const data = await res.json();

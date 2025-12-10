@@ -282,7 +282,7 @@ async def get_image_alias(request: AliasRequest, user: User = Depends(get_curren
         alias = response.text.strip()
         save_alias(user, request.conversation_id, alias)
         
-        return {\"alias\": alias}
+        return {"alias": alias}
     except Exception as ex:
-        logger.error(f\"GET_ALIAS_ERROR: {str(ex)}\")
-        return {\"alias\": \"New Chat\", \"error\": str(ex)}
+        logger.error(f"GET_ALIAS_ERROR: {str(ex)}")
+        return {"alias": "New Chat", "error": str(ex)}
