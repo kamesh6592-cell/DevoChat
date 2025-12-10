@@ -117,7 +117,7 @@ function ImageChat({ isTouch, chatMessageRef }) {
                 updateConversation(conversation_id, aliasData.alias, false);
               }
             } catch (err) {
-              updateConversation(conversation_id, "새 대화", false);
+              updateConversation(conversation_id, "New Chat", false);
             }
           })();
         } 
@@ -183,7 +183,7 @@ function ImageChat({ isTouch, chatMessageRef }) {
 
       const imageFiles = files.filter((file) => file.type && file.type.startsWith("image/"));
       if (imageFiles.length === 0) {
-        setToastMessage("이미지만 업로드할 수 있습니다.");
+        setToastMessage("Only images can be uploaded.");
         setShowToast(true);
         return;
       }
@@ -199,14 +199,14 @@ function ImageChat({ isTouch, chatMessageRef }) {
     async (message, files = uploadedFiles) => {
       if (!message.trim() || uploadingFiles) {
         if (!message.trim()) {
-          setToastMessage("내용을 입력해주세요.");
+          setToastMessage("Please enter content.");
           setShowToast(true);
         }
         return;
       }
 
       if (canEditImage && files.length > maxImageInput) {
-        setToastMessage(`이미지는 최대 ${maxImageInput}개까지 업로드할 수 있습니다.`);
+        setToastMessage(`You can upload up to ${maxImageInput} images.`);
         setShowToast(true);
         return;
       }
@@ -237,7 +237,7 @@ function ImageChat({ isTouch, chatMessageRef }) {
       try {
         const selectedModel = imageModels.find(m => m.model_name === imageModel);
         if (!selectedModel) {
-          throw new Error("선택한 모델이 유효하지 않습니다.");
+          throw new Error("Selected model is invalid.");
         }
 
         console.log("selectedModel", selectedModel);
@@ -266,7 +266,7 @@ function ImageChat({ isTouch, chatMessageRef }) {
           return;
         }
         else if (!response.ok) {
-          setErrorMessage("이미지 생성에 실패했습니다: " + result.detail);
+          setErrorMessage("Image generation failed: " + result.detail);
           return;
         }
         
@@ -277,11 +277,11 @@ function ImageChat({ isTouch, chatMessageRef }) {
             name: result.name
           });
         } else {
-          setErrorMessage("이미지 생성에 실패했습니다.");
+          setErrorMessage("Image generation failed.");
         }
       } catch (err) {
         if (err.name === "AbortError") return;
-        setErrorMessage("요청 중 오류가 발생했습니다: " + err.message);
+        setErrorMessage("An error occurred during request: " + err.message);
       } finally {
         setIsLoading(false);
         abortControllerRef.current = null;
@@ -321,10 +321,10 @@ function ImageChat({ isTouch, chatMessageRef }) {
           window.location.href = '/login?expired=true';
         }
         if (!res.ok) {
-          throw new Error('메세지 삭제에 실패했습니다.');
+          throw new Error('Failed to delete message.');
         }
       } catch (err) {
-        setToastMessage("메세지 삭제 중 오류가 발생했습니다.");
+        setToastMessage("An error occurred while deleting the message.");
         setShowToast(true);
       }
     },
@@ -343,7 +343,7 @@ function ImageChat({ isTouch, chatMessageRef }) {
         
         sendMessage(textContent, nonTextContent);
       } catch (err) {
-        setToastMessage("메세지 처리 중 오류가 발생했습니다.");
+        setToastMessage("An error occurred while processing message.");
         setShowToast(true);
       }
     },

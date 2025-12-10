@@ -94,7 +94,7 @@ function Home({ isTouch }) {
       try {
         const selectedModel = models.find((m) => m.model_name === model);
         if (!selectedModel) {
-          throw new Error("선택한 모델이 유효하지 않습니다.");
+          throw new Error("Selected model is invalid.");
         }
         setIsLoading(true);
         
@@ -109,14 +109,14 @@ function Home({ isTouch }) {
           body: JSON.stringify({})
         });
         if (!res.ok) {
-          throw new Error('새 대화를 시작하는 데 실패했습니다.');
+          throw new Error('Failed to start new conversation.');
         }
         
         const data = await res.json();
         const newConversation = {
           type: "chat",
           conversation_id: data.conversation_id,
-          alias: "새 대화",
+          alias: "New Chat",
           starred: false,
           starred_at: null,
           created_at: data.created_at,
@@ -132,7 +132,7 @@ function Home({ isTouch }) {
           replace: false,
         });
       } catch (error) {
-        setToastMessage("새 대화를 시작하는 데 실패했습니다.");
+        setToastMessage("Failed to start new conversation.");
         setShowToast(true);
         setIsLoading(false);
       } finally {
@@ -235,12 +235,12 @@ function Home({ isTouch }) {
               {canReadImage ? (
                 <>
                   <IoImageOutline style={{ fontSize: "40px" }} />
-                  <div className="drag-text">여기에 파일 또는 이미지를 추가하세요</div>
+                  <div className="drag-text">Drop files or images here</div>
                 </>
               ) : (
                 <>
                   <IoAttach style={{ fontSize: "40px" }} />
-                  <div className="drag-text">여기에 파일을 추가하세요</div>
+                  <div className="drag-text">Drop files here</div>
                 </>
               )}
             </div>
