@@ -23,19 +23,19 @@ function Register() {
 
   async function handleRegister() {
     if (!name || !email || !password) {
-      setToastMessage("모든 필드를 입력해 주세요.");
+      setToastMessage("Please fill in all fields.");
       setShowToast(true);
       return;
     }
 
     if (!validateEmail(email)) {
-      setToastMessage("올바른 이메일 형식을 입력해 주세요.");
+      setToastMessage("Please enter a valid email format.");
       setShowToast(true);
       return;
     }
 
     if (password.length < 8 || password.length > 20) {
-      setToastMessage("비밀번호는 8자리 이상 20자리 이하로 입력해 주세요.");
+      setToastMessage("Password must be between 8 and 20 characters.");
       setShowToast(true);
       return;
     }
@@ -49,11 +49,11 @@ function Register() {
     if (!res.ok) {
       let detail = null;
       try { detail = (await res.json())?.detail; } catch {}
-      throw new Error(detail || "알 수 없는 오류가 발생했습니다.");
+      throw new Error(detail || "An unknown error occurred.");
     }
     setConfirmModal(true);
     } catch (error) {
-    setToastMessage(error.message || "알 수 없는 오류가 발생했습니다.");
+    setToastMessage(error.message || "An unknown error occurred.");
       setShowToast(true);
     }
   }
@@ -75,7 +75,7 @@ function Register() {
         <input 
           className="name field" 
           type="text" 
-          placeholder="이름" 
+          placeholder="Name" 
           value={name} 
           onChange={(e) => setName(e.target.value)}
           autoComplete="name"
@@ -83,7 +83,7 @@ function Register() {
         <input 
           className="id field" 
           type="email" 
-          placeholder="이메일" 
+          placeholder="Email" 
           value={email} 
           onChange={(e) => {
             const value = e.target.value;
@@ -96,7 +96,7 @@ function Register() {
         <input 
           className="password field" 
           type="password" 
-          placeholder="비밀번호" 
+          placeholder="Password" 
           value={password} 
           onChange={(e) => {
             const value = e.target.value;
@@ -106,18 +106,18 @@ function Register() {
           }}
           autoComplete="new-password"
         />
-        <p className="info">*비밀번호는 8자리 이상으로 입력해 주세요.</p>
-        <button className="continue field" type="submit">회원가입</button>
+        <p className="info">*Password must be at least 8 characters.</p>
+        <button className="continue field" type="submit">Register</button>
       </form>
       <div className="footer">
-        <p>이미 가입하셨나요?</p>
-        <button className="route" onClick={() => navigate("/login")}>로그인</button>
+        <p>Already have an account?</p>
+        <button className="route" onClick={() => navigate("/login")}>Login</button>
       </div>
 
       <AnimatePresence>
         {confirmModal && (
           <Modal
-            message="회원가입 성공! 로그인 페이지로 이동합니다."
+            message="Registration successful! Redirecting to login page."
             onConfirm={() => {
               setConfirmModal(null);
               navigate("/login");

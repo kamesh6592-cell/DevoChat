@@ -145,7 +145,7 @@ function InputContainer({
     try {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        setToastMessage("이 브라우저는 음성 인식을 지원하지 않습니다.");
+        setToastMessage("This browser does not support speech recognition.");
         setShowToast(true);
         return;
       }
@@ -167,7 +167,7 @@ function InputContainer({
       };
 
       recognition.onerror = (event) => {
-        setToastMessage(`음성 인식 오류가 발생했습니다. ${event.error}`);
+        setToastMessage(`Speech recognition error occurred. ${event.error}`);
         setShowToast(true);
         handleRecordingStop();
       };
@@ -181,7 +181,7 @@ function InputContainer({
       setIsRecording(true);
       setShowMediaOptions(false);
     } catch (error) {
-      setToastMessage("음성 인식을 시작하는 데 실패했습니다.");
+      setToastMessage("Failed to start speech recognition.");
       setShowToast(true);
     }
   }, [isRecording, handleRecordingStop, inputText, setInputText]);
@@ -219,7 +219,7 @@ function InputContainer({
     if (inputText.trim()) {
       onSend(inputText);
     } else {
-      setToastMessage("내용을 입력해주세요.");
+      setToastMessage("Please enter content.");
       setShowToast(true);
     }
   }, [isLoading, inputText, onSend, onCancel]);
@@ -307,9 +307,9 @@ function InputContainer({
                 transition={{ duration: 0.3 }}
               >
                 <div className="recording-dot"></div>
-                <span>{`녹음 중... ${formatRecordingTime(recordingTime)}`}</span>
+                <span>{`Recording... ${formatRecordingTime(recordingTime)}`}</span>
                 <button className="stop-recording-button" onClick={handleRecordingStop}>
-                  완료
+                  Done
                 </button>
               </motion.div>
             )}
@@ -348,16 +348,16 @@ function InputContainer({
                 >
                   <div className="media-option" onClick={handleFileClick}>
                     <FiPaperclip />
-                    파일 업로드
+                    File Upload
                   </div>
                   <div className="media-option" onClick={handleRecordingStart}>
                     <FiMic />
-                    음성 인식
+                    Voice Input
                   </div>
                   {canToggleMCP && (
                     <div className="media-option" onClick={handleMCPClick}>
                       <FiServer style={{ paddingLeft: "0.5px", color: "#5e5bff", strokeWidth: 2.5 }} />
-                      <span className="mcp-text">MCP 서버</span>
+                      <span className="mcp-text">MCP Servers</span>
                     </div>
                   )}
                 </motion.div>

@@ -245,7 +245,7 @@ function Admin() {
               <tbody>
                 {conversations.length === 0 ? (
                   <tr>
-                    <td colSpan="3" className="no-data">대화 내역이 없습니다.</td>
+                    <td colSpan="3" className="no-data">No chat history.</td>
                   </tr>
                 ) : (
                   conversations.map(conv => (
@@ -273,18 +273,18 @@ function Admin() {
 
   return (
     <div className="admin-container">
-      <h1 className="admin-title">사용자 관리</h1>
+        <h1 className="admin-title">User Management</h1>
       <div className="admin-stats">
         <div className="stat-card">
-          <h3>전체 사용자</h3>
+          <h3>All Users</h3>
           <p>{users.length}</p>
         </div>
         <div className="stat-card">
-          <h3>임시회원</h3>
+          <h3>Trial Members</h3>
           <p>{users.filter(user => user.trial).length}</p>
         </div>
         <div className="stat-card">
-          <h3>정회원</h3>
+          <h3>Full Members</h3>
           <p>{users.filter(user => !user.trial).length}</p>
         </div>
       </div>
@@ -293,16 +293,16 @@ function Admin() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>이름</th>
-              <th>이메일</th>
-              <th>사용량</th>
-              <th>정회원</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Usage</th>
+              <th>Full Member</th>
             </tr>
           </thead>
           <tbody>
             {users.length === 0 ? (
               <tr>
-                <td colSpan="4" className="no-data">사용자 데이터가 없습니다.</td>
+                <td colSpan="4" className="no-data">No user data.</td>
               </tr>
             ) : (
               users.map(user => (

@@ -32,7 +32,7 @@ function ImageHeader({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) 
     return true;
   });
 
-  const currentModelAlias = imageModels.find((m) => m.model_name === imageModel)?.model_alias || "모델 선택";
+  const currentModelAlias = imageModels.find((m) => m.model_name === imageModel)?.model_alias || "Select Model";
 
   const handleShare = async () => {
     try {
@@ -60,11 +60,11 @@ function ImageHeader({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) 
 
       try {
         await navigator.clipboard.writeText(`https://share.devochat.com/id/${uniqueId}`);
-        setToastMessage("공유 링크가 복사되었습니다.");
+        setToastMessage("Share link copied!");
         setToastType("copy");
         setShowToast(true);
       } catch (err) {
-        console.error("복사 실패:", err);
+        console.error("Copy failed:", err);
       }
 
       const res = await fetch(
@@ -98,7 +98,7 @@ function ImageHeader({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) 
       }
 
     } catch (error) {
-      console.error('링크 생성 실패:', error);
+      console.error('Link creation failed:', error);
     }
   };
 
@@ -116,7 +116,7 @@ function ImageHeader({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) 
     <div className="header">
       <div className="header-left">
         {!isSidebarOpen && (
-          <Tooltip content="사이드바 열기" position="right" isTouch={isTouch}>
+            <Tooltip content="Open Sidebar" position="right" isTouch={isTouch}>
             <div className="header-icon menu-icon">
               <RiMenuLine onClick={toggleSidebar} />
             </div>
@@ -131,7 +131,7 @@ function ImageHeader({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) 
       <div className="header-right">
         {conversation_id && (
           <div className="header-icon-wrapper">
-            <Tooltip content="공유하기" position="left" isTouch={isTouch}>
+            <Tooltip content="Share" position="left" isTouch={isTouch}>
               <div className="header-icon share-icon">
                 <RiShare2Line onClick={handleShare} />
               </div>
@@ -161,7 +161,7 @@ function ImageHeader({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) 
                   >
                     <div className="model-alias">{m.model_alias}</div>
                     <div className="model-description">{m.description}</div>
-                    <div className="model-pricing">{parseFloat(((parseFloat(m.billing?.in_billing) + parseFloat(m.billing?.out_billing)) * 100).toFixed(1))}$ / 100회</div>
+                    <div className="model-pricing">{parseFloat(((parseFloat(m.billing?.in_billing) + parseFloat(m.billing?.out_billing)) * 100).toFixed(1))}$ / 100 uses</div>
                   </div>
                 ))}
               </div>

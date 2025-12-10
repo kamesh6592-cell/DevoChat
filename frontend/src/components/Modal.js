@@ -18,14 +18,14 @@ function Modal({ message, onConfirm, onCancel, showCancelButton = true }) {
         <div className="modal-button">
           {showCancelButton && (
             <button className="button" onClick={() => onCancel()}>
-              취소
+              Cancel
             </button>
           )}
           <button
             className={`button ${showCancelButton ? 'highlight' : ''}`}
             onClick={() => onConfirm()}
           >
-            확인
+            Confirm
           </button>
         </div>
       </div>

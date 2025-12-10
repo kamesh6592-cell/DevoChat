@@ -31,9 +31,9 @@ export const useFileUpload = (initialFiles = []) => {
           
           if (!res.ok) {
             if (res.status === 422) {
-              throw new Error(`${file.name}는 업로드할 수 없는 파일입니다.`);
+              throw new Error(`Cannot upload ${file.name}`);
             }
-            throw new Error(`${file.name} 처리 중 오류가 발생했습니다.`);
+            throw new Error(`An error occurred while processing ${file.name}`);}
           }
           
           const data = await res.json();
@@ -67,12 +67,12 @@ export const useFileUpload = (initialFiles = []) => {
           
           if (!res.ok) {
             if (res.status === 422) {
-              throw new Error(`${file.name}는 업로드할 수 없는 파일입니다.`);
+              throw new Error(`Cannot upload ${file.name}`);
             }
             if (res.status === 413) {
-              throw new Error(`${file.name}는 파일 크기 제한을 초과하여 업로드할 수 없습니다.`);
+              throw new Error(`${file.name} exceeds the file size limit`);
             }
-            throw new Error(`${file.name} 처리 중 오류가 발생했습니다.`);
+            throw new Error(`An error occurred while processing ${file.name}`);}
           }
           
           const data = await res.json();
@@ -102,12 +102,12 @@ export const useFileUpload = (initialFiles = []) => {
       
       const imageFiles = files.filter((file) => file.type.startsWith("image/"));
       if (imageFiles.length > 0 && !imageSupport) {
-        onError?.("해당 모델은 이미지 업로드를 지원하지 않습니다.");
+        onError?.("This model does not support image uploads.");
         return;
       }
       
       if (files.length > remaining) {
-        onError?.(`최대 ${maxAllowed}개까지 업로드할 수 있습니다.`);
+        onError?.(`You can upload up to ${maxAllowed} files.`);
         acceptedFiles = files.slice(0, remaining);
       } else {
         acceptedFiles = files;

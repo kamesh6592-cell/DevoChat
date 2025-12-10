@@ -44,7 +44,7 @@ function SearchModal({
             <div className="search-modal-input-container">
               <input
                 type="text"
-                placeholder="검색어를 입력하세요."
+                placeholder="Enter search term"
                 value={searchQuery}
                 onChange={(e) => setChangeQuery(e.target.value)}
                 className="search-modal-input"

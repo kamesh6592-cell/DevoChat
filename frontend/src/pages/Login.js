@@ -16,7 +16,7 @@ function Login() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('expired') === 'true') {
-      setToastMessage("다시 로그인해 주세요.");
+      setToastMessage("Please log in again.");
       setShowToast(true);
       window.history.replaceState({}, document.title, window.location.pathname);
     }
@@ -29,13 +29,13 @@ function Login() {
 
   async function handleLogin() {
     if (!email || !password) {
-      setToastMessage("모든 필드를 입력해 주세요.");
+      setToastMessage("Please fill in all fields.");
       setShowToast(true);
       return;
     }
 
     if (!validateEmail(email)) {
-      setToastMessage("올바른 이메일 형식을 입력해 주세요.");
+      setToastMessage("Please enter a valid email format.");
       setShowToast(true);
       return;
     }
@@ -50,11 +50,11 @@ function Login() {
       if (!res.ok) {
         let detail = null;
         try { detail = (await res.json())?.detail; } catch {}
-        throw new Error(detail || "알 수 없는 오류가 발생했습니다.");
+        throw new Error(detail || "An unknown error occurred.");
       }
       window.location.reload();
     } catch (error) {
-      setToastMessage(error.message || "알 수 없는 오류가 발생했습니다.");
+      setToastMessage(error.message || "An unknown error occurred.");
       setShowToast(true);
     }
   }
@@ -76,7 +76,7 @@ function Login() {
         <input
           className="id field"
           type="email"
-          placeholder="이메일"
+          placeholder="Email"
           value={email}
           onChange={(e) => {
             const value = e.target.value;
@@ -89,7 +89,7 @@ function Login() {
         <input
           className="password field"
           type="password"
-          placeholder="비밀번호"
+          placeholder="Password"
           value={password}
           onChange={(e) => {
             const value = e.target.value;
@@ -100,13 +100,13 @@ function Login() {
           autoComplete="current-password"
         />
         <button className="continue field" type="submit">
-          로그인
+          Login
         </button>
       </form>
       <div className="footer">
-        <p>계정이 없으신가요?</p>
+        <p>Don't have an account?</p>
         <button className="route" onClick={() => navigate("/register")}>
-          가입하기
+          Register
         </button>
       </div>
 

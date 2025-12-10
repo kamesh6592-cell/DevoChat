@@ -126,7 +126,7 @@ function Chat({ isTouch, chatMessageRef }) {
         }
         if (!res.ok) throw new Error('delete failed');
       } catch (err) {
-        setToastMessage("메세지 삭제 중 오류가 발생했습니다.");
+        setToastMessage("An error occurred while deleting the message.");
         setShowToast(true);
       }
     },
@@ -136,7 +136,7 @@ function Chat({ isTouch, chatMessageRef }) {
   const sendMessage = useCallback(
     async (message, files = uploadedFiles) => {
       if (!message.trim()) {
-        setToastMessage("내용을 입력해주세요.");
+        setToastMessage("Please enter content.");
         setShowToast(true);
         return;
       }
@@ -231,7 +231,7 @@ function Chat({ isTouch, chatMessageRef }) {
               return;
             }
             if (res.status === 413) {
-              setToastMessage("크기 제한을 초과하여 URL 인식에 실패했습니다.");
+              setToastMessage("Failed to recognize URL due to size limit exceeded.");
               setShowToast(true);
               return;
             }
@@ -259,7 +259,7 @@ function Chat({ isTouch, chatMessageRef }) {
       try {
         const selectedModel = models.find((m) => m.model_name === model);
         if (!selectedModel) {
-          throw new Error("선택한 모델이 유효하지 않습니다.");
+          throw new Error("Selected model is invalid.");
         }
         if (isInference) {
           setIsThinking(true);
@@ -336,7 +336,7 @@ function Chat({ isTouch, chatMessageRef }) {
                   updateAssistantMessage(assistantText, false);
                 }
               } catch (err) {
-                setErrorMessage("스트리밍 중 오류가 발생했습니다: " + err.message);
+                setErrorMessage("An error occurred during streaming: " + err.message);
                 reader.cancel();
                 return;
               }
@@ -347,7 +347,7 @@ function Chat({ isTouch, chatMessageRef }) {
         updateAssistantMessage(assistantText, true);
       } catch (err) {
         if (err.name === "AbortError") return;
-        setErrorMessage("메시지 전송 중 오류가 발생했습니다: " + err.message);
+        setErrorMessage("An error occurred while sending message: " + err.message);
       } finally {
         setIsThinking(prev => prev ? false : prev);
         setIsLoading(false);
@@ -392,7 +392,7 @@ function Chat({ isTouch, chatMessageRef }) {
         
         sendMessage(textContent, nonTextContent);
       } catch (err) {
-        setToastMessage("메세지 처리 중 오류가 발생했습니다.");
+        setToastMessage("An error occurred while processing message.");
         setShowToast(true);
       }
     },
@@ -471,7 +471,7 @@ function Chat({ isTouch, chatMessageRef }) {
                 updateConversation(conversation_id, aliasData.alias, false);
               }
             } catch (err) {
-              updateConversation(conversation_id, "새 대화", false);
+              updateConversation(conversation_id, "New Chat", false);
             }
           })();
         }
@@ -483,10 +483,10 @@ function Chat({ isTouch, chatMessageRef }) {
           if (!res.ok) {
             if (res.status === 404) {
               fetchConversations();
-              navigate("/", { state: { errorModal: "대화를 찾을 수 없습니다." } });
+              navigate("/", { state: { errorModal: "Conversation not found." } });
             } else {
               fetchConversations();
-              navigate("/", { state: { errorModal: "대화를 불러오는 중 오류가 발생했습니다." } });
+              navigate("/", { state: { errorModal: "An error occurred while loading conversation." } });
             }
             return;
           }
@@ -518,10 +518,10 @@ function Chat({ isTouch, chatMessageRef }) {
       } catch (err) {
         if (err.response && err.response.status === 404) {
           fetchConversations();
-          navigate("/", { state: { errorModal: "대화를 찾을 수 없습니다." } });
+          navigate("/", { state: { errorModal: "Conversation not found." } });
         } else {
           fetchConversations();
-          navigate("/", { state: { errorModal: "대화를 불러오는 중 오류가 발생했습니다." } });
+          navigate("/", { state: { errorModal: "An error occurred while loading conversation." } });
         }
       } finally {
         if (!isInitialized) setIsInitialized(true);
@@ -752,12 +752,12 @@ function Chat({ isTouch, chatMessageRef }) {
               {canReadImage ? (
                 <>
                   <IoImageOutline style={{ fontSize: "40px" }} />
-                  <div className="drag-text">여기에 파일 또는 이미지를 추가하세요</div>
+                  <div className="drag-text">Drop files or images here</div>
                 </>
               ) : (
                 <>
                   <IoAttach style={{ fontSize: "40px" }} />
-                  <div className="drag-text">여기에 파일을 추가하세요</div>
+                  <div className="drag-text">Drop files here</div>
                 </>
               )}
             </div>

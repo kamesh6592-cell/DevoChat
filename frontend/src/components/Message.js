@@ -166,11 +166,11 @@ function Message({
 
         {isEditing ? (
           <div className="edit-buttons">
-            <button className="edit-button cancel" onClick={cancelEdit}>
-              취소
+            <button className="edit-button cancel" onClick={handleCancelEdit}>
+              Cancel
             </button>
-            <button className="edit-button save" onClick={saveEdit}>
-              완료
+            <button className="edit-button confirm" onClick={handleSaveEdit}>
+              Done
             </button>
           </div>
         ) : (

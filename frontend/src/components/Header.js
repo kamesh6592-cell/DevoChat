@@ -53,7 +53,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
     return true;
   });
 
-  const currentModelAlias = models.find((m) => m.model_name === model)?.model_alias || "모델 선택";
+  const currentModelAlias = models.find((m) => m.model_name === model)?.model_alias || "Select Model";
 
   const toPercent = (value, max = 1) => {
     const pct = Math.round((value / max) * 100);
@@ -86,11 +86,11 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
 
       try {
         await navigator.clipboard.writeText(`https://share.devochat.com/id/${uniqueId}`);
-        setToastMessage("공유 링크가 복사되었습니다.");
+        setToastMessage("Share link copied!");
         setToastType("copy");
         setShowToast(true);
       } catch (err) {
-        console.error("복사 실패:", err);
+        console.error("Copy failed:", err);
       }
 
       const res = await fetch(
@@ -124,7 +124,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
       }
 
     } catch (error) {
-      console.error('링크 생성 실패:', error);
+      console.error('Link creation failed:', error);
     }
   };
   
@@ -169,7 +169,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
     <div className="header">
       <div className="header-left">
         {!isSidebarOpen && (
-          <Tooltip content="사이드바 열기" position="right" isTouch={isTouch}>
+            <Tooltip content="Open Sidebar" position="right" isTouch={isTouch}>
             <div className="header-icon menu-icon">
               <RiMenuLine onClick={toggleSidebar} />
             </div>
@@ -184,7 +184,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
       <div className="header-right">
         {conversation_id && (
           <div className="header-icon-wrapper">
-            <Tooltip content="공유하기" position="left" isTouch={isTouch}>
+            <Tooltip content="Share" position="left" isTouch={isTouch}>
               <div className="header-icon share-icon">
                 <RiShare2Line onClick={handleShare} />
               </div>
@@ -201,7 +201,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
             >
-              <Tooltip content="파라미터 설정" position="left" isTouch={isTouch}>
+              <Tooltip content="Parameters" position="left" isTouch={isTouch}>
                 <div className="header-icon slider-icon">
                   <RiLightbulbLine
                     onClick={() => {
@@ -226,7 +226,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
                     {canControlTemp && (
                       <div className="slider-section">
                         <div className="slider-label">
-                          <span>창의성</span>
+                          <span>Creativity</span>
                           <span className="slider-value">
                             {toPercent(temperature, 2)}
                           </span>
@@ -247,7 +247,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
                     {canControlReason && (
                       <div className="slider-section">
                         <div className="slider-label">
-                          <span>추론 강도</span>
+                          <span>Reasoning</span>
                           <span className="slider-value">
                             {toPercent(reason)}
                           </span>
@@ -266,7 +266,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
                     {canControlVerbosity && (
                       <div className="slider-section">
                         <div className="slider-label">
-                          <span>답변 길이</span>
+                          <span>Length</span>
                           <span className="slider-value">
                             {toPercent(verbosity)}
                           </span>
@@ -284,9 +284,9 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
                     )}
                   <div className="slider-section">
                     <div className="slider-label">
-                      <span>대화 기억</span>
+                      <span>Memory</span>
                       <span className="slider-value">
-                        {memory === 0 ? "기억 안함" : `${memory}개`}
+                        {memory === 0 ? "None" : `${memory}`}
                       </span>
                     </div>
                     <input
@@ -312,7 +312,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
             >
-              <Tooltip content="지시어 설정" position="left" isTouch={isTouch}>
+              <Tooltip content="Instructions" position="left" isTouch={isTouch}>
                 <div className="header-icon system-message-icon">
                   <RiEdit2Line
                     onClick={() => {
@@ -335,13 +335,13 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
                     transition={{ duration: 0.2 }}
                   >
                     <div className="system-message-label">
-                      <span>시스템 지시어 설정</span>
+                      <span>System Instructions</span>
                     </div>
                     <textarea
                       value={systemMessage}
                       onChange={(e) => setSystemMessage(e.target.value)}
                       className="system-message-input"
-                      placeholder="내용을 입력하세요."
+                      placeholder="Enter instructions..."
                       rows={5}
                     />
                   </motion.div>

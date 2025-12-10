@@ -186,7 +186,7 @@ function ImageInputContainer({
                 layout
               >
                 <GoImage style={{ strokeWidth: 0.5 }} />
-                <span className="button-text">이미지</span>
+                <span className="button-text">Image</span>
               </motion.div>
             </div>
           )}

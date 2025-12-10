@@ -18,7 +18,7 @@ const MCPModal = ({ isOpen, onClose, onConfirm, currentMCPList }) => {
         credentials: "include"
       });
       if (!response.ok) {
-        throw new Error('서버 목록을 불러올 수 없습니다.');
+        throw new Error('Failed to load server list.');
       }
       
       const servers = await response.json();

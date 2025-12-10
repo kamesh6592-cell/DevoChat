@@ -98,7 +98,7 @@ const ConversationItem = React.memo(({
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                로딩 중...
+                Loading...
               </motion.span>
             ) : (
               <motion.span
@@ -183,7 +183,7 @@ function Sidebar({
       (c) => c.conversation_id === conversation_id
     );
     if (!conv) {
-      setToastMessage("대화가 존재하지 않습니다.");
+      setToastMessage("Conversation does not exist.");
       setShowToast(true);
       return;
     }
@@ -210,10 +210,10 @@ function Sidebar({
           window.location.href = '/login?expired=true';
       }
       if (!res.ok) {
-        throw new Error('즐겨찾기 토글이 실패했습니다.');
+        throw new Error('Failed to toggle favorite.');
       }
     } catch (error) {
-      setToastMessage("즐겨찾기 토글이 실패했습니다.");
+      setToastMessage("Failed to toggle favorite.");
       const conversation = conversations.find(c => c.conversation_id === conversation_id);
       if (conversation) {
         toggleStarConversation(conversation_id, conversation.starred);
@@ -297,11 +297,11 @@ function Sidebar({
         window.location.href = '/login?expired=true';
       }
       if (!res.ok) {
-        throw new Error('대화 이름 편집에 실패했습니다.');
+        throw new Error('Failed to rename conversation.');
       }
     } catch (error) {
       console.error("Failed to rename conversation.", error);
-      setToastMessage("대화 이름 편집에 실패했습니다.");
+      setToastMessage("Failed to rename conversation.");
       setShowToast(true);
     }
   }, [updateConversation, currentConversationId, setAlias]);
@@ -320,11 +320,11 @@ function Sidebar({
         window.location.href = '/login?expired=true';
       }
       if (!res.ok) {
-        throw new Error('대화 삭제에 실패했습니다.');
+        throw new Error('Failed to delete conversation.');
       }
     } catch (error) {
       console.error("Failed to delete conversation.", error);
-      setToastMessage("대화 삭제에 실패했습니다.");
+      setToastMessage("Failed to delete conversation.");
       setShowToast(true);
     }
   }, [deleteConversation, currentConversationId, navigate]);
@@ -340,14 +340,14 @@ function Sidebar({
   }, [navigate, isResponsive, toggleSidebar]);
 
   const handleDeleteAll = useCallback(() => {
-    setModalMessage("정말 모든 대화를 삭제하시겠습니까?");
+    setModalMessage("Are you sure you want to delete all conversations?");
     setModalAction("deleteAll");
     setShowModal(true);
     setIsDropdown(false);
   }, []);
 
   const handleLogoutClick = useCallback(() => {
-    setModalMessage("정말 로그아웃 하시겠습니까?");
+    setModalMessage("Are you sure you want to log out?");
     setModalAction("logout");
     setShowModal(true);
   }, []);
@@ -367,12 +367,12 @@ function Sidebar({
             window.location.href = '/login?expired=true';
           }
           if (!res.ok) {
-            throw new Error('대화 삭제에 실패했습니다.');
+            throw new Error('Failed to delete conversation.');
           }
         }
       } catch (error) {
         console.error("Failed to delete conversations.", error);
-        setToastMessage("대화 삭제에 실패했습니다.");
+        setToastMessage("Failed to delete conversation.");
         setShowToast(true);
       }
     } else if (modalAction === "logout") {
@@ -390,7 +390,7 @@ function Sidebar({
           if (!res.ok) {
             let detail = null;
             try { detail = (await res.json())?.detail; } catch {}
-            throw new Error(detail || '알 수 없는 오류가 발생했습니다.');
+            throw new Error(detail || 'An unknown error occurred.');
           }
         }
         window.location.href = '/login';
@@ -399,7 +399,7 @@ function Sidebar({
         setToastMessage(
           !Array.isArray(detail) && detail
             ? detail
-            : "알 수 없는 오류가 발생했습니다."
+            : "An unknown error occurred."
         );
         setShowToast(true);
       }
@@ -520,7 +520,7 @@ function Sidebar({
             </div>
           </div>
           <div className="header-right">
-            <Tooltip content="사이드바 닫기" position="bottom" isTouch={isTouch}>
+            <Tooltip content="Close sidebar" position="bottom" isTouch={isTouch}>
               <div className="header-icon">
                 <RiMenuLine onClick={toggleSidebar} />
               </div>
@@ -531,19 +531,19 @@ function Sidebar({
         <div className="newtask-container">
           <div className="new-task search" onClick={toggleSearch}>
             <LuSearch />
-            검색
+            Search
           </div>
           <div className="new-task" onClick={handleNewConversation}>
             <LuSquarePen />
-            새 대화
+            New Chat
           </div>
           <div className="new-task" onClick={handleImageGeneration}>
             <LuImage />
-            이미지 생성
+            Generate Image
           </div>
           <div className="new-task" onClick={handleRealtimeConversation}>
             <LuAudioLines />
-            음성 대화
+            Voice Chat
           </div>
         </div>
 
@@ -559,9 +559,9 @@ function Sidebar({
           ) : (
             <>
               <div className="conversation-header">
-                대화 기록
+                Chat History
               </div>
-              <motion.div
+              <motion.div>
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
@@ -595,7 +595,7 @@ function Sidebar({
                     ))
                 ) : (
                   <div className="no-result">
-                    {conversations.length === 0 ? "대화 내역이 없습니다." : "검색 결과가 없습니다."}
+                    {conversations.length === 0 ? "No conversation history." : "No search results."}
                   </div>
                 )}
               </motion.div>
@@ -620,10 +620,10 @@ function Sidebar({
               >
                 <div onClick={handleRefresh} className="dropdown-item user-billing">
                   <div className="billing-text">
-                    {userInfo?.billing?.toFixed(2)}$ 사용됨
+                    ${userInfo?.billing?.toFixed(2)} used
                   </div>
                   <div className="refresh-button">
-                    페이지 새로고침
+                    Refresh page
                   </div>
                 </div>
                 {userInfo?.admin && (
@@ -631,18 +631,18 @@ function Sidebar({
                     onClick={handleAdminClick}
                     className="dropdown-item"
                   >
-                    사용자 관리
+                    User Management
                   </div>
                 )}
                 <div onClick={handleDeleteAll} className="dropdown-item">
-                  전체 대화 삭제
+                  Delete All Conversations
                 </div>
                 <div
                   onClick={handleLogoutClick}
                   className="dropdown-item"
                   style={{ color: "red" }}
                 >
-                  로그아웃
+                  Logout
                 </div>
               </motion.div>
             )}
@@ -676,13 +676,13 @@ function Sidebar({
               {selectedConversationId && (
                 <>
                   {conversations.find(c => c.conversation_id === selectedConversationId)?.starred ? (
-                    <li onClick={() => handleCustomAction("star")}>즐겨찾기 해제</li>
+                    <li onClick={() => handleCustomAction("star")}>Unstar</li>
                   ) : (
-                    <li onClick={() => handleCustomAction("star")}>즐겨찾기</li>
+                    <li onClick={() => handleCustomAction("star")}>Star</li>
                   )}
-                  <li onClick={() => handleCustomAction("rename")}>이름 편집</li>
-                  <li onClick={() => handleCustomAction("delete")}>삭제</li>
-                </>
+                  <li onClick={() => handleCustomAction("rename")}>Rename</li>
+                  <li onClick={() => handleCustomAction("delete")}>Delete</li>
+                <>
               )}
             </ul>
           </motion.div>
