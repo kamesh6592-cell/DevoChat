@@ -86,7 +86,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
       });
 
       try {
-        await navigator.clipboard.writeText(`https://share.devochat.com/id/${uniqueId}`);
+        await navigator.clipboard.writeText(`https://www.me.tomoacademy.site/view/${uniqueId}`);
         setToastMessage("Share link copied!");
         setToastType("copy");
         setShowToast(true);
