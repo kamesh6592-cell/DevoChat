@@ -246,7 +246,7 @@ function AppContent() {
           <div className="header" style={{ padding: "0 20px" }}>
             <img
               src={logo}
-              alt="DEVOCHAT"
+              alt="TOMO"
               width="143.5px"
               onClick={() => navigate("/")}
               style={{ cursor: "pointer" }}

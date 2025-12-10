@@ -67,7 +67,7 @@ function Login() {
       transition={{ duration: 0.4 }}
     >
       <div className="auth-logo">
-        <img src={logo} alt="DEVOCHAT" className="logo-image" />
+        <img src={logo} alt="TOMO" className="logo-image" />
       </div>
       <form className="auth-input-container" onSubmit={(e) => {
         e.preventDefault();

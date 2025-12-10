@@ -515,7 +515,7 @@ function Sidebar({
         <div className="header sidebar-header">
           <div className="header-left">
             <div className="logo">
-              <img src={logo} alt="DEVOCHAT" className="logo-image" />
+              <img src={logo} alt="TOMO" className="logo-image" />
             </div>
           </div>
           <div className="header-right">
