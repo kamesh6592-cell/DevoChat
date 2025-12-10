@@ -39,7 +39,7 @@ def get_mcp_servers(server_ids: List[str], current_user: User) -> tuple[List[Dic
         
         if server_config.get("admin") and not current_user.admin:
             logger.warning(json.dumps({"event": "MCP_SERVER_PERMISSION_ERROR", "username": current_user.name, "server_id": server_id}, ensure_ascii=False, indent=2))
-            return [], "잘못된 접근입니다."
+            return [], "Invalid access."
         
         mcp_server = {
             "type": "mcp",

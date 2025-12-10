@@ -345,7 +345,7 @@ async def upload_page(content: WebContent):
                 <meta name="description" content="DevoChat" />
                 <meta property="og:title" content="{content.title}">
                 <meta property="og:site_name" content="{content.title}">
-                <meta property="og:description" content="DevoChat 공유 링크">
+                <meta property="og:description" content="DevoChat Share Link">
                 <meta property="og:image" content="https://devochat.com/full_logo.png">
                 <meta property="og:url" content="https://share.devochat.com/og">
                 <meta property="og:type" content="website">
@@ -354,7 +354,7 @@ async def upload_page(content: WebContent):
                 <link rel="icon" type="image/svg+xml" href="https://devochat.com/favicon/favicon.svg" />
                 <link rel="shortcut icon" href="https://devochat.com/favicon/favicon.ico" />
                 <link rel="apple-touch-icon" sizes="180x180" href="https://devochat.com/favicon/apple-touch-icon.png" />
-                <meta name="apple-mobile-web-app-title" content="DevoChat 공유 링크" />
+                <meta name="apple-mobile-web-app-title" content="DevoChat Share Link" />
 
                 <title>{content.title}</title>
                 {stylesheet_content}
