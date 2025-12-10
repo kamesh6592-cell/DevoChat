@@ -19,7 +19,7 @@ anthropic==0.47.2
 openai==1.59.5
 google-generativeai==0.8.4
 google-ai-generativelanguage==0.6.15
-google-cloud-speech==2.30.1
+google-cloud-speech==2.27.0
 
 # HTTP & API Clients
 httpx==0.28.1
