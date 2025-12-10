@@ -1,9 +1,42 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #fafafa;
+  --bg-hover: #f0f0f0;
+  --text-primary: #171717;
+  --text-secondary: #737373;
+  --text-tertiary: #a3a3a3;
+  --border-color: #e5e5e5;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-lg: rgba(0, 0, 0, 0.15);
+}
+
+:root.dark {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --bg-hover: #222222;
+  --text-primary: #ededed;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #737373;
+  --border-color: #2a2a2a;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow-lg: rgba(0, 0, 0, 0.7);
+}
+
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body, button, textarea, input {

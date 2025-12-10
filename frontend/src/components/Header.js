@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Tooltip from "./Tooltip";
 import Toast from "./Toast";
+import ThemeToggle from "./ThemeToggle";
 import "../styles/Header.css";
 
 function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
@@ -182,6 +183,7 @@ function Header({ toggleSidebar, isSidebarOpen, isTouch, chatMessageRef }) {
       </div>
 
       <div className="header-right">
+        <ThemeToggle />
         {conversation_id && (
           <div className="header-icon-wrapper">
             <Tooltip content="Share" position="left" isTouch={isTouch}>

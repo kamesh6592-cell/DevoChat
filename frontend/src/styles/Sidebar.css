@@ -5,8 +5,8 @@
     width: 260px;
     height: 100dvh;
     box-sizing: border-box;
-    border-right: 1px solid rgb(240, 240, 240);
-    background-color: rgb(252, 252, 252);
+    border-right: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
     z-index: 100;
     position: fixed;
     left: 0;
@@ -16,6 +16,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-touch-callout: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .sidebar .header {
@@ -62,7 +63,8 @@
     padding: 10px 12px;
     font-size: 15px;
     font-weight: 500;
-    transition: background-color 0.2s ease-in-out;
+    color: var(--text-primary);
+    transition: background-color 0.2s ease-in-out, color 0.3s ease;
     cursor: pointer;
     border-radius: 8px;
     box-sizing: border-box;
@@ -71,13 +73,13 @@
 .new-task.search {
     margin-bottom: 2px;
     padding: 9px 11px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(236, 236, 236);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
     border-radius: 15px;
 }
 
 .new-task:hover {
-    background-color: #f1f1f1;
+    background-color: var(--bg-hover);
 }
 
 .conversation-container {
@@ -99,7 +101,8 @@
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
-    color: #505050;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
 .conversation-item {
@@ -122,7 +125,7 @@
 }
 
 .conversation-item:hover {
-    background-color: #f3f3f3;
+    background-color: var(--bg-hover);
 }
 
 .conversation-text,
@@ -137,7 +140,8 @@
 
 .conversation-text {
     font-size: 14px;
-    color: #333;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 .conversation-text.search {
@@ -146,7 +150,8 @@
 
 .loading-text {
     font-size: 13.5px;
-    color: #666;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
 .rename-input {
@@ -154,6 +159,9 @@
     padding: 4px 2px;
     border: 0;
     font-size: 14px;
+    background-color: transparent;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 input:focus {
@@ -161,7 +169,7 @@ input:focus {
 }
 
 .active-conversation {
-    background-color: #f3f3f3;
+    background-color: var(--bg-hover);
 } 
 
 .star-icon {
@@ -178,17 +186,19 @@ input:focus {
     padding: 20px;
     justify-content: center;
     align-items: center;
-    color: #666;
+    color: var(--text-secondary);
     font-size: 14px;
     text-align: center;
+    transition: color 0.3s ease;
 }
 
 .context-menu {
     font-size: 15px;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    background: var(--bg-primary);
+    box-shadow: 0 2px 10px var(--shadow-lg);
     z-index: 101;
     border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 .context-menu ul {
@@ -202,6 +212,12 @@ input:focus {
     padding: 8px 16px;
     cursor: pointer;
     white-space: nowrap;
+    color: var(--text-primary);
+    transition: background-color 0.2s ease, color 0.3s ease;
+}
+
+.context-menu li:hover {
+    background-color: var(--bg-hover);
 }
 
 .context-menu li {
@@ -215,20 +231,23 @@ input:focus {
     bottom: 100%;
     left: 10px;
     right: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--bg-primary);
     border-radius: 10px;
     z-index: 101;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px var(--shadow-lg);
+    transition: background-color 0.3s ease;
 }
 
 .user-dropdown button {
     text-align: center;
     width: 100%;
     cursor: pointer;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 .user-dropdown button:hover {
-    background-color: #f3f3f3;
+    background-color: var(--bg-hover);
 }
 
 .user-container {
@@ -241,12 +260,14 @@ input:focus {
     align-items: center;
     padding: 25px 20px;
     gap: 10px;
-    border-top: 1px solid rgb(240, 240, 240);
+    border-top: 1px solid var(--border-color);
     cursor: pointer;
+    color: var(--text-primary);
+    transition: background-color 0.2s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .user-info:hover {
-    background-color: #f3f3f3;
+    background-color: var(--bg-hover);
 }
 
 .user-icon {
@@ -263,16 +284,17 @@ input:focus {
     cursor: pointer;
     height: 60px;
     font-size: 16px;
-    color: #333;
-    border-top: 1px solid rgb(248, 248, 248);
+    color: var(--text-primary);
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.2s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .dropdown-item:hover {
-    background-color: #f3f3f3;
+    background-color: var(--bg-hover);
 }
 
 .dropdown-item.user-billing {
-    border-top: 1px solid rgb(240, 240, 240);
+    border-top: 1px solid var(--border-color);
 }
 
 .user-billing {

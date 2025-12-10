@@ -5,61 +5,61 @@
       "model_name": "gpt-realtime:marin",
       "model_alias": "Marin",
       "model_gender": "female",
-      "description": "따뜻한 성격의 동기부여자"
+      "description": "Warm-hearted motivator"
     },
     {
       "model_name": "gpt-realtime:alloy",
       "model_alias": "Alloy",
       "model_gender": "female",
-      "description": "항상 차분히 조언해주는 친구"
+      "description": "Calm friend who always gives advice"
     },
     {
       "model_name": "gpt-realtime:ash",
       "model_alias": "Ash",
       "model_gender": "male",
-      "description": "언제나 날 믿어주는 든든한 조력자"
+      "description": "Reliable supporter who always believes in you"
     },
     {
       "model_name": "gpt-realtime:ballad",
       "model_alias": "Ballad",
       "model_gender": "male",
-      "description": "호기심 많은 탐험가"
+      "description": "Curious explorer"
     },
     {
       "model_name": "gpt-realtime:cedar",
       "model_alias": "Cedar",
       "model_gender": "male",
-      "description": "생각 정리를 돕는 침착한 멘토"
+      "description": "Calm mentor who helps organize thoughts"
     },
     {
       "model_name": "gpt-realtime:coral",
       "model_alias": "Coral",
       "model_gender": "female",
-      "description": "밝은 톤으로 대화를 이끄는 분위기 메이커"
+      "description": "Upbeat mood maker who leads conversations"
     },
     {
       "model_name": "gpt-realtime:echo",
       "model_alias": "Echo",
       "model_gender": "male",
-      "description": "묵묵히 내 말을 들어주는 친구"
+      "description": "Silent friend who listens to you"
     },
     {
       "model_name": "gpt-realtime:sage",
       "model_alias": "Sage",
       "model_gender": "female",
-      "description": "부드럽게 마음을 다독여주는 상담가"
+      "description": "Gentle counselor who comforts the heart"
     },
     {
       "model_name": "gpt-realtime:shimmer",
       "model_alias": "Shimmer",
       "model_gender": "female",
-      "description": "낮고 깊은 목소리의 차분한 조언가"
+      "description": "Calm advisor with a low, deep voice"
     },
     {
       "model_name": "gpt-realtime:verse",
       "model_alias": "Verse",
       "model_gender": "male",
-      "description": "명료한 목소리의 내레이터"
+      "description": "Clear-voiced narrator"
     }
   ]
 }
