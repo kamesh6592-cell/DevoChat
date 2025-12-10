@@ -11,7 +11,7 @@ router = APIRouter()
 @router.get("/session")
 async def create_ephemeral_token(user: User = Depends(get_current_user), model: str = Query(None)):
     if user.trial:
-        raise HTTPException(status_code=403, detail="체험판 유저는 Realtime API 사용이 불가합니다.\n\n자세한 정보는 admin@shilvister.net으로 문의해 주세요.")
+        raise HTTPException(status_code=403, detail="Trial users cannot use Realtime API.\n\nFor more information, contact admin@shilvister.net")
 
     REALTIME_MODEL = model.split(":")[0]
     REALTIME_VOICE = model.split(":")[1]

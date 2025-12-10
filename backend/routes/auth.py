@@ -48,7 +48,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 @router.post("/register")
 async def register(user: RegisterUser):
     if collection.find_one({"email": user.email}):
-        raise HTTPException(status_code=400, detail="이미 존재하는 사용자입니다.")
+        raise HTTPException(status_code=400, detail="User already exists.")
     
     new_user = {
         "name": user.name,
@@ -67,7 +67,7 @@ async def register(user: RegisterUser):
 async def login(user: LoginUser):
     db_user = collection.find_one({"email": user.email})
     if not db_user or not verify_password(user.password, db_user["password"]):
-        raise HTTPException(status_code=401, detail="이메일 또는 비밀번호 오류입니다.")
+        raise HTTPException(status_code=401, detail="Invalid email or password.")
     
     token = jwt.encode(
         {

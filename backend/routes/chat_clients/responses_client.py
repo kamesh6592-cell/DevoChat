@@ -26,7 +26,7 @@ def get_mcp_servers(server_ids: List[str], current_user: User) -> tuple[List[Dic
             mcp_server_configs = json.load(f)
     except Exception as ex:
         logger.error(f"MCP_SERVER_FETCH_ERROR: {str(ex)}")
-        return [], "서버 오류가 발생했습니다."
+        return [], "A server error occurred."
     
     server_list = []
     

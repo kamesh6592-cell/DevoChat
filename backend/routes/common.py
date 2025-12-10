@@ -93,34 +93,34 @@ os.makedirs(generated_image_path, exist_ok=True)
 def check_user_permissions(user: User, request: ChatRequest):
     billing_result = get_model_billing(request.model)
     if not billing_result:
-        return "잘못된 모델입니다.", None, None
+        return "Invalid model.", None, None
     else:
         in_billing, out_billing = billing_result
     
     if user.trial and user.trial_remaining <= 0:
-        return "체험판이 종료되었습니다.\n\n자세한 정보는 admin@shilvister.net으로 문의해 주세요.", None, None
+        return "Trial period has ended.\n\nFor more information, contact admin@shilvister.net", None, None
     if not user.admin and in_billing >= 10:
-        return "해당 모델을 사용할 권한이 없습니다.\n\n자세한 정보는 admin@shilvister.net으로 문의해 주세요.", None, None
+        return "You do not have permission to use this model.\n\nFor more information, contact admin@shilvister.net", None, None
     if not user.admin and len(request.mcp) > 3:
-        return "MCP 서버는 최대 3개까지 선택할 수 있습니다.", None, None
+        return "You can select up to 3 MCP servers.", None, None
     if not request.user_message:
-        return "메시지가 비어 있습니다. 내용을 입력해 주세요.", None, None
+        return "Message is empty. Please enter content.", None, None
     return None, in_billing, out_billing
 
 
 def check_image_user_permissions(user: User, request: ImageGenerateRequest):
     billing_result = get_image_model_billing(request.model)
     if not billing_result:
-        return "잘못된 모델입니다.", None, None
+        return "Invalid model.", None, None
     else:
         in_billing, out_billing = billing_result
     
     if user.trial and user.trial_remaining <= 0:
-        return "체험판이 종료되었습니다.\n\n자세한 정보는 admin@shilvister.net으로 문의해 주세요.", None, None
+        return "Trial period has ended.\n\nFor more information, contact admin@shilvister.net", None, None
     if not user.admin and (in_billing + out_billing) >= 0.1:
-        return "해당 모델을 사용할 권한이 없습니다.\n\n자세한 정보는 admin@shilvister.net으로 문의해 주세요.", None, None
+        return "You do not have permission to use this model.\n\nFor more information, contact admin@shilvister.net", None, None
     if not request.prompt:
-        return "프롬프트가 비어 있습니다. 내용을 입력해 주세요.", None, None
+        return "Prompt is empty. Please enter content.", None, None
     return None, in_billing, out_billing
     
 def get_conversation(user: User, conversation_id: str, memory):
