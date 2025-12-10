@@ -58,6 +58,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         os.getenv('PRODUCTION_URL'),
+        os.getenv('PRODUCTION_URL_2'),
         os.getenv('DEVELOPMENT_URL')
     ],
     allow_credentials=True,
