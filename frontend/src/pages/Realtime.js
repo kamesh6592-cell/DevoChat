@@ -125,7 +125,7 @@ const Realtime = () => {
       }
       combinedAudioRef.current.addSourceFromStream(stream);
     } catch (e) {
-      throw new Error("마이크 권한을 허용해 주세요.");
+      throw new Error("Please allow microphone access.");
     }
   }, []);
 
@@ -165,7 +165,7 @@ const Realtime = () => {
           try {
             await audioInputRef.current.play();
           } catch (err) {
-            throw new Error("오류가 발생했습니다. 다시 시도해주세요.");
+            throw new Error("An error occurred. Please try again.");
           }
 
           if (!combinedAudioRef.current) {

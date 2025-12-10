@@ -21,10 +21,12 @@
     margin: 0 10px;
     padding: 40px 50px;
     gap: 10px;
-    background: #fff;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     box-sizing: border-box;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 30px var(--shadow-lg);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .modal-content {
@@ -35,7 +37,9 @@
     width: 100%;
     margin: 20px 0;
     font-size: 20px;
+    color: var(--text-primary);
     word-break: break-all;
+    transition: color 0.3s ease;
 }
 
 .modal-button {
@@ -51,15 +55,16 @@
     padding: 15px;
     max-width: 120px;
     font-size: 16px;
-    border: 1px solid rgb(240, 240, 240);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     cursor: pointer;
     background: transparent;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .modal-button button:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: var(--bg-hover);
 }
 
 .modal-button .highlight:hover {

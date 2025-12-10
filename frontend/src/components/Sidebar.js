@@ -377,23 +377,22 @@ function Sidebar({
       }
     } else if (modalAction === "logout") {
       try {
-        {
-          const res = await fetch(`${process.env.REACT_APP_FASTAPI_URL}/logout`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({})
-          });
-          if (res.status === 401 && !window.location.pathname.includes('/login') && !window.location.pathname.includes('/register')) {
-            window.location.href = '/login?expired=true';
-          }
-          if (!res.ok) {
-            let detail = null;
-            try { detail = (await res.json())?.detail; } catch {}
-            throw new Error(detail || 'An unknown error occurred.');
-          }
+        const res = await fetch(`${process.env.REACT_APP_FASTAPI_URL}/logout`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (!res.ok) {
+          let detail = null;
+          try { detail = (await res.json())?.detail; } catch {}
+          throw new Error(detail || 'Logout failed.');
         }
-        window.location.href = '/login';
+        
+        // Clear local storage and redirect
+        localStorage.clear();
+        navigate('/login');
+        window.location.reload();
       } catch (error) {
         const detail = error.response?.data?.detail;
         setToastMessage(

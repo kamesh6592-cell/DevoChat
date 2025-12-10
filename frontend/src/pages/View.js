@@ -23,9 +23,9 @@ function View() {
         });
         if (!res.ok) {
           if (res.status === 404) {
-            navigate("/", { state: { errorModal: "대화를 찾을 수 없습니다." } });
+            navigate("/", { state: { errorModal: "Conversation not found." } });
           } else {
-            navigate("/", { state: { errorModal: "데이터를 불러오는 중 오류가 발생했습니다." } });
+            navigate("/", { state: { errorModal: "Error loading data." } });
           }
           return;
         }
@@ -36,7 +36,7 @@ function View() {
         });
         setMessages(updatedMessages);
       } catch (err) {
-        navigate("/", { state: { errorModal: "데이터를 불러오는 중 오류가 발생했습니다." } });
+        navigate("/", { state: { errorModal: "Error loading data." } });
       } finally {
         setIsInitialized(true);
       }
