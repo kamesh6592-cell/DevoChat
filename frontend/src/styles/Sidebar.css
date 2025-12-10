@@ -144,6 +144,10 @@
     transition: color 0.3s ease;
 }
 
+:root.dark .conversation-text {
+    color: #ededed;
+}
+
 .conversation-text.search {
     font-weight: 500;
 }
@@ -152,6 +156,10 @@
     font-size: 13.5px;
     color: var(--text-secondary);
     transition: color 0.3s ease;
+}
+
+:root.dark .loading-text {
+    color: #a0a0a0;
 }
 
 .rename-input {
