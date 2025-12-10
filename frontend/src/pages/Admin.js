@@ -35,7 +35,7 @@ function Admin() {
         }
 
         if (!response.ok) {
-          navigate("/", { state: { errorModal: "권한이 없습니다." } });
+          navigate("/", { state: { errorModal: "Access denied." } });
           return;
         }
 
@@ -43,7 +43,7 @@ function Admin() {
         setUsers(data);
         setLoading(false);
       } catch (err) {
-        navigate("/", { state: { errorModal: "오류가 발생했습니다." } });
+        navigate("/", { state: { errorModal: "An error occurred." } });
       }
     };
 
@@ -86,13 +86,13 @@ function Admin() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || '대화 내역을 불러오는데 실패했습니다.');
+        throw new Error(errorData.detail || 'Failed to load conversation history.');
       }
 
       const data = await response.json();
       setConversations(data.conversations);
     } catch (err) {
-      console.error('대화 내역 로딩 오류:', err);
+      console.error('Error loading conversations:', err);
     } finally {
       setLoadingConversations(false);
     }
@@ -120,7 +120,7 @@ function Admin() {
       }
 
       if (!response.ok) {
-        throw new Error('상태 변경에 실패했습니다.');
+        throw new Error('Failed to change status.');
       }
 
       const updatedUser = await response.json();
@@ -129,7 +129,7 @@ function Admin() {
         user.user_id === userId ? updatedUser : user
       ));
     } catch (err) {
-      alert('사용자 상태 변경 중 오류가 발생했습니다.');
+      alert('Error occurred while changing user status.');
       console.error(err);
     } finally {
       setUpdatingUser(null);
@@ -237,9 +237,9 @@ function Admin() {
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>대화 제목</th>
-                  <th>모델</th>
-                  <th>생성일</th>
+                  <th>Title</th>
+                  <th>Model</th>
+                  <th>Created</th>
                 </tr>
               </thead>
               <tbody>

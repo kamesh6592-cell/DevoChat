@@ -378,7 +378,7 @@ function InputContainer({
                 layout
               >
                 <GoGlobe style={{ strokeWidth: 0.5 }} />
-                <span className="button-text">검색</span>
+                <span className="button-text">Search</span>
               </motion.div>
             )}
             {canToggleInference && (
@@ -393,7 +393,7 @@ function InputContainer({
                 layout
               >
                 <GoLightBulb style={{ strokeWidth: 0.5 }} />
-                <span className="button-text">추론</span>
+                <span className="button-text">Inference</span>
               </motion.div>
             )}
             {canToggleDeepResearch && (
@@ -408,7 +408,7 @@ function InputContainer({
                 layout
               >
                 <GoTelescope style={{ strokeWidth: 0.5 }} />
-                <span className="button-text">딥 리서치</span>
+                <span className="button-text">Deep Research</span>
               </motion.div>
             )}
             {canControlSystemMessage && (
@@ -434,7 +434,7 @@ function InputContainer({
         className="send-button"
         onClick={handleSendButtonClick}
         disabled={uploadingFiles || isRecording}
-        aria-label={isLoading ? "전송 중단" : "메시지 전송"}
+        aria-label={isLoading ? "Stop sending" : "Send message"}
       >
         {isLoading ? (
           <div className="loading-container">

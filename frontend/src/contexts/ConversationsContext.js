@@ -15,13 +15,13 @@ export function ConversationsProvider({ children }) {
         credentials: "include"
       });
       if (!res.ok) {
-        throw new Error('대화를 불러오는 데 실패했습니다.');
+        throw new Error('Failed to load conversations.');
       }
       const data = await res.json();
       setConversations(data.conversations);
       setError(null);
     } catch (error) {
-      setError(error.message || "대화를 불러오는 데 실패했습니다.");
+      setError(error.message || "Failed to load conversations.");
     } finally {
       setIsLoadingChat(false);
     }

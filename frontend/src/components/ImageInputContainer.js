@@ -103,7 +103,7 @@ function ImageInputContainer({
     if (inputText.trim()) {
       onSend(inputText);
     } else {
-      setToastMessage("내용을 입력해주세요.");
+      setToastMessage("Please enter a message.");
       setShowToast(true);
     }
   }, [isLoading, inputText, onSend, onCancel]);
@@ -197,7 +197,7 @@ function ImageInputContainer({
         className="send-button"
         onClick={handleSendButtonClick}
         disabled={uploadingFiles}
-        aria-label={isLoading ? "전송 중단" : "메시지 전송"}
+        aria-label={isLoading ? "Stop sending" : "Send message"}
       >
         {isLoading ? (
           <div className="loading-container">

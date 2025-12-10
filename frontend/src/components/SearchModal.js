@@ -73,7 +73,7 @@ function SearchModal({
                 </div>
               ))}
               {filteredConversations.length === 0 && searchQuery.trim() && (
-                <div className="no-result">검색 결과가 없습니다.</div>
+                <div className="no-result">No search results found.</div>
               )}
             </div>
           </div>

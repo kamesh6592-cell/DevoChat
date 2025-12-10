@@ -218,7 +218,7 @@ const Realtime = () => {
         },
       });
       if (!sdpResponse.ok) {
-        throw new Error(`연결에 실패했습니다: ${sdpResponse.status} ${sdpResponse.statusText}`);
+        throw new Error(`Connection failed: ${sdpResponse.status} ${sdpResponse.statusText}`);
       }
       const answer = { type: 'answer', sdp: await sdpResponse.text() };
       await peerConnection.current.setRemoteDescription(answer);
@@ -246,7 +246,7 @@ const Realtime = () => {
       setIsMicEnabled(!isMicEnabled);
     } catch (err) {
       cleanup();
-      navigate("/", { state: { errorModal: "마이크 토글 중 오류가 발생했습니다." } });
+      navigate("/", { state: { errorModal: "An error occurred while toggling microphone." } });
     }
   }, [navigate, isMicEnabled, cleanup]);
 

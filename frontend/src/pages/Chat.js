@@ -726,7 +726,7 @@ function Chat({ isTouch, chatMessageRef }) {
 
       <InputContainer
         isTouch={isTouch}
-        placeholder="답장 입력"
+        placeholder="Enter reply"
         inputText={inputText}
         setInputText={setInputText}
         isLoading={isLoading}
