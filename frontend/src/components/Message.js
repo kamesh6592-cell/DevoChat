@@ -166,10 +166,10 @@ function Message({
 
         {isEditing ? (
           <div className="edit-buttons">
-            <button className="edit-button cancel" onClick={handleCancelEdit}>
+            <button className="edit-button cancel" onClick={cancelEdit}>
               Cancel
             </button>
-            <button className="edit-button confirm" onClick={handleSaveEdit}>
+            <button className="edit-button confirm" onClick={saveEdit}>
               Done
             </button>
           </div>

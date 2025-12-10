@@ -682,7 +682,7 @@ function Sidebar({
                   )}
                   <li onClick={() => handleCustomAction("rename")}>Rename</li>
                   <li onClick={() => handleCustomAction("delete")}>Delete</li>
-                <>
+                </>
               )}
             </ul>
           </motion.div>
