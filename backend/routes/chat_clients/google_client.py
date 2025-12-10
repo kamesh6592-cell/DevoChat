@@ -98,7 +98,7 @@ async def process_stream(chunk_queue: asyncio.Queue, request: ChatRequest, param
                     usage_metadata = chunk.usage_metadata
                     input_tokens = usage_metadata.prompt_token_count or 0
                     output_tokens = usage_metadata.candidates_token_count or 0
-                    reasoning_tokens = usage_metadata.thoughts_token_count or 0
+                    reasoning_tokens = getattr(usage_metadata, 'thoughts_token_count', 0) or 0
                     
                     await chunk_queue.put({
                         "type": "token_usage",
@@ -140,7 +140,7 @@ async def process_stream(chunk_queue: asyncio.Queue, request: ChatRequest, param
                 
             input_tokens = single_result.usage_metadata.prompt_token_count or 0
             output_tokens = single_result.usage_metadata.candidates_token_count or 0
-            reasoning_tokens = single_result.usage_metadata.thoughts_token_count or 0
+            reasoning_tokens = getattr(single_result.usage_metadata, 'thoughts_token_count', 0) or 0
             
             await chunk_queue.put({
                 "type": "token_usage",
