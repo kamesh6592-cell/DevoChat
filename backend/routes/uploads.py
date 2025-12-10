@@ -2,7 +2,6 @@ import os
 import uuid
 import tempfile
 import zipfile
-import textract
 import io
 import json
 from fastapi import APIRouter, File, UploadFile, HTTPException, Depends
@@ -12,6 +11,11 @@ from typing import List
 from google.cloud import speech
 from .auth import User, get_current_user
 from logging_util import logger
+import docx
+import PyPDF2
+import pdfplumber
+from openpyxl import load_workbook
+from pptx import Presentation
 
 router = APIRouter()
 
@@ -30,6 +34,76 @@ class WebContent(BaseModel):
     html: str
     stylesheets: List[str]
     title: str
+
+def extract_text_from_file(file_path: str) -> str:
+    """Extract text from various file formats"""
+    ext = os.path.splitext(file_path)[1].lower()
+    
+    try:
+        # PDF files
+        if ext == '.pdf':
+            text = ""
+            try:
+                with pdfplumber.open(file_path) as pdf:
+                    for page in pdf.pages:
+                        page_text = page.extract_text()
+                        if page_text:
+                            text += page_text + "\n"
+            except:
+                # Fallback to PyPDF2
+                with open(file_path, 'rb') as f:
+                    pdf_reader = PyPDF2.PdfReader(f)
+                    for page in pdf_reader.pages:
+                        text += page.extract_text() + "\n"
+            return text.strip()
+        
+        # Word documents
+        elif ext in ['.docx', '.doc']:
+            doc = docx.Document(file_path)
+            text = "\n".join([paragraph.text for paragraph in doc.paragraphs])
+            return text.strip()
+        
+        # PowerPoint
+        elif ext in ['.pptx', '.ppt']:
+            prs = Presentation(file_path)
+            text = ""
+            for slide in prs.slides:
+                for shape in slide.shapes:
+                    if hasattr(shape, "text"):
+                        text += shape.text + "\n"
+            return text.strip()
+        
+        # Excel
+        elif ext in ['.xlsx', '.xls']:
+            wb = load_workbook(file_path, data_only=True)
+            text = ""
+            for sheet in wb.worksheets:
+                for row in sheet.iter_rows(values_only=True):
+                    row_text = "\t".join([str(cell) if cell is not None else "" for cell in row])
+                    if row_text.strip():
+                        text += row_text + "\n"
+            return text.strip()
+        
+        # Plain text files
+        else:
+            with open(file_path, 'rb') as f:
+                content = f.read()
+                # Try UTF-8 first
+                try:
+                    return content.decode('utf-8').strip()
+                except:
+                    # Try other encodings
+                    for encoding in ['latin-1', 'cp1252', 'iso-8859-1']:
+                        try:
+                            return content.decode(encoding).strip()
+                        except:
+                            continue
+                    # Last resort
+                    return content.decode('utf-8', errors='ignore').strip()
+    
+    except Exception as e:
+        logger.error(f"Error extracting text from {file_path}: {str(e)}")
+        return ""
 
 def is_binary(data: bytes) -> bool:
     if not data:
@@ -143,10 +217,9 @@ async def upload_file(file: UploadFile = File(...), current_user: User = Depends
                         tmp_path = tmp.name
                     
                     try:
-                        extracted_bytes = textract.process(tmp_path)
-                        inner_extracted_text = extracted_bytes.decode("utf-8", errors="ignore").strip()
+                        inner_extracted_text = extract_text_from_file(tmp_path)
                     except Exception as ex:
-                        logger.info(f"TEXTRACT_FAILED_ARCHIVE: {json.dumps({'file': inner_filename, 'error': str(ex), 'fallback': 'direct_decode'}, ensure_ascii=False, indent=2)}")
+                        logger.info(f"EXTRACTION_FAILED_ARCHIVE: {json.dumps({'file': inner_filename, 'error': str(ex), 'fallback': 'direct_decode'}, ensure_ascii=False, indent=2)}")
                         try:
                             if not is_binary(inner_file_data):
                                 decoded_text = inner_file_data.decode("utf-8", errors="replace")
@@ -196,12 +269,11 @@ async def upload_file(file: UploadFile = File(...), current_user: User = Depends
                 for result in response.results:
                     extracted_text += result.alternatives[0].transcript + " "
             except Exception as ex:
-                logger.info(f"GOOGLE_STT_FAILED: {json.dumps({'file': filename, 'error': str(ex), 'fallback': 'textract'}, ensure_ascii=False, indent=2)}")
+                logger.info(f"GOOGLE_STT_FAILED: {json.dumps({'file': filename, 'error': str(ex), 'fallback': 'text_extraction'}, ensure_ascii=False, indent=2)}")
                 try:
-                    extracted_bytes = textract.process(tmp_path)
-                    extracted_text = extracted_bytes.decode("utf-8", errors="ignore").strip()
+                    extracted_text = extract_text_from_file(tmp_path)
                 except Exception as ex2:
-                    logger.info(f"TEXTRACT_FAILED: {json.dumps({'file': filename, 'error': str(ex2)}, ensure_ascii=False, indent=2)}")
+                    logger.info(f"EXTRACTION_FAILED: {json.dumps({'file': filename, 'error': str(ex2)}, ensure_ascii=False, indent=2)}")
                     extracted_text = ""
             finally:
                 os.remove(tmp_path)
@@ -213,10 +285,9 @@ async def upload_file(file: UploadFile = File(...), current_user: User = Depends
                 tmp_path = tmp.name
 
             try:
-                extracted_bytes = textract.process(tmp_path)
-                extracted_text = extracted_bytes.decode("utf-8", errors="ignore").strip()
+                extracted_text = extract_text_from_file(tmp_path)
             except Exception as ex:
-                logger.info(f"TEXTRACT_FAILED: {json.dumps({'file': filename, 'error': str(ex), 'fallback': 'direct_decode'}, ensure_ascii=False, indent=2)}")
+                logger.info(f"EXTRACTION_FAILED: {json.dumps({'file': filename, 'error': str(ex), 'fallback': 'direct_decode'}, ensure_ascii=False, indent=2)}")
                 try:
                     if not is_binary(file_data):
                         decoded_text = file_data.decode("utf-8", errors="replace")
