@@ -126,14 +126,14 @@ async def serve_icons(file_path: str):
     )
 
 @app.get("/chat_models", response_model=dict)
-async def get_models(user: User = Depends(get_current_user)):
+async def get_models():
     try:
         with open("config/chat_models.json", "r", encoding="utf-8") as f:
             models_data = json.load(f)
             
         models = []
         for model in models_data["models"]:
-            if not user.admin and model["admin"]:
+            if model.get("admin", False):
                 continue
             models.append(model)
         
@@ -145,14 +145,14 @@ async def get_models(user: User = Depends(get_current_user)):
         raise HTTPException(status_code=500, detail=f"Error occurred while fetching chat models: {str(ex)}")
 
 @app.get("/image_models", response_model=dict)
-async def get_image_models(user: User = Depends(get_current_user)):
+async def get_image_models():
     try:
         with open("config/image_models.json", "r", encoding="utf-8") as f:
             models_data = json.load(f)
 
         models = []
         for model in models_data["models"]:
-            if not user.admin and model.get("admin"):
+            if model.get("admin", False):
                 continue
             models.append(model)
 
@@ -164,10 +164,7 @@ async def get_image_models(user: User = Depends(get_current_user)):
         raise HTTPException(status_code=500, detail=f"Error occurred while fetching image models: {str(ex)}")
 
 @app.get("/realtime_models", response_model=dict)
-async def get_realtime_models(user: User = Depends(get_current_user)):
-    if user.trial:
-        raise HTTPException(status_code=403, detail="체험판 유저는 Realtime API 사용이 불가합니다.\n\n자세한 정보는 admin@shilvister.net으로 문의해 주세요.")
-    
+async def get_realtime_models():
     try:
         with open("config/realtime_models.json", "r", encoding="utf-8") as f:
             models_data = json.load(f)
