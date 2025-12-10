@@ -18,7 +18,7 @@ mongo_client = MongoClient(os.getenv('MONGODB_URI'))
 db = mongo_client.chat_db
 collection = db.users
 
-AUTH_KEY = os.getenv('AUTH_KEY')
+AUTH_KEY = os.getenv('SECRET_KEY') or os.getenv('AUTH_KEY')
 ALGORITHM = 'HS256'
 
 class RegisterUser(BaseModel):
@@ -90,7 +90,8 @@ async def login(user: LoginUser):
         key="access_token",
         value=token,
         httponly=True,
-        samesite='Lax',
+        secure=True,
+        samesite='None',
         max_age=60 * 60 * 24 * 30
     )
     return response
